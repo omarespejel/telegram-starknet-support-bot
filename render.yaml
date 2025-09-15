@@ -1,0 +1,19 @@
+services:
+  - type: worker
+    name: starknet-group-bot
+    runtime: python
+    buildCommand: "pip install -r requirements.txt"
+    startCommand: "python bot.py"
+    envVars:
+      - key: TELEGRAM_BOT_TOKEN
+        sync: false
+      - key: BOT_USERNAME
+        value: StarkSenseibot
+      - key: AI_API_BASE_URL
+        value: https://backend.agent.starknet.id
+      - key: AI_API_WS_URL
+        value: wss://backend.agent.starknet.id/
+      - key: SUPABASE_URL
+        sync: false
+      - key: SUPABASE_SERVICE_KEY
+        sync: false
