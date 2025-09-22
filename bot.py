@@ -233,7 +233,7 @@ def main() -> None:
 
     # Start bot
     logger.info(f"Starting bot @{BOT_USERNAME}...")
-    application.run_polling(allowed_updates=Update.ALL_TYPES)
+    application.run_polling(drop_pending_updates=True)
 
 
 if __name__ == "__main__":

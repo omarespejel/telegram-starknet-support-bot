@@ -1,6 +1,7 @@
 """Simple database wrapper for Supabase."""
 
 import logging
+import asyncio
 
 from supabase import Client, create_client
 
@@ -25,16 +26,20 @@ class Database:
             return  # Skip if no database configured
 
         try:
-            self.client.table("conversations").insert(
-                {
-                    "user_id": user_id,
-                    "chat_id": chat_id,
-                    "chat_type": chat_type,
-                    "username": username,
-                    "message": message[:2000],  # Truncate long messages
-                    "role": role,
-                }
-            ).execute()
+            await asyncio.to_thread(
+                lambda: self.client.table("conversations")
+                .insert(
+                    {
+                        "user_id": user_id,
+                        "chat_id": chat_id,
+                        "chat_type": chat_type,
+                        "username": username,
+                        "message": message[:2000],  # Truncate long messages
+                        "role": role,
+                    }
+                )
+                .execute()
+            )
         except Exception as e:
             logger.error(f"Failed to save message: {e}")
 
@@ -44,8 +49,8 @@ class Database:
             return []
 
         try:
-            result = (
-                self.client.table("conversations")
+            result = await asyncio.to_thread(
+                lambda: self.client.table("conversations")
                 .select("role, message")
                 .eq("chat_id", chat_id)
                 .order("created_at", desc=True)
