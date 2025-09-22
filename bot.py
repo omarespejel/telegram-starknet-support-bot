@@ -4,7 +4,7 @@ import logging
 from datetime import datetime, timedelta
 
 from telegram import Update
-from telegram.constants import ChatAction, ParseMode
+from telegram.constants import ChatAction
 from telegram.ext import (
     Application,
     CommandHandler,
@@ -100,7 +100,6 @@ async def start(update: Update, context: ContextTypes.DEFAULT_TYPE) -> None:
         "• StarkNet architecture\n"
         "• Account abstraction\n"
         "• zk-STARKs",
-        parse_mode=ParseMode.MARKDOWN,
     )
 
 
@@ -116,7 +115,6 @@ async def help_command(update: Update, context: ContextTypes.DEFAULT_TYPE) -> No
         "• In DMs: Just type your question\n\n"
         "**Topics I know:**\n"
         "Cairo, smart contracts, StarkNet, L2 scaling, zk-STARKs",
-        parse_mode=ParseMode.MARKDOWN,
     )
 
 
@@ -182,12 +180,11 @@ async def handle_message(update: Update, context: ContextTypes.DEFAULT_TYPE) -> 
             parts = [response[i : i + 4000] for i in range(0, len(response), 4000)]
             for part in parts:
                 await message.reply_text(
-                    part, parse_mode=ParseMode.MARKDOWN, disable_web_page_preview=True
+                    part, disable_web_page_preview=True
                 )
         else:
             await message.reply_text(
                 response,
-                parse_mode=ParseMode.MARKDOWN,
                 disable_web_page_preview=True,
                 reply_to_message_id=(
                     message.message_id if chat.type in ["group", "supergroup"] else None
