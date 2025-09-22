@@ -22,9 +22,9 @@ EMBEDDING_MODEL_PROVIDER = os.getenv("EMBEDDING_MODEL_PROVIDER", "openai")
 
 # Focus modes
 FOCUS_MODES = {
-    "default": "cairoBookSearch",
+    "default": "starknetEcosystemSearch",
     "web": "webSearch",
-    "cairo": "cairoBookSearch",
+    "cairo": "starknetEcosystemSearch",
 }
 
 # Database

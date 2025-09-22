@@ -85,7 +85,7 @@ class StarknetAI:
                                     "content": message,
                                 },
                                 "copilot": False,
-                                "focusMode": FOCUS_MODES.get("default", "cairoBookSearch"),
+                                "focusMode": FOCUS_MODES.get("default", "starknetEcosystemSearch"),
                                 "history": formatted_history,
                             }
                         )
